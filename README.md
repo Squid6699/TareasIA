@@ -1,0 +1,11 @@
+# INTELIGENCIA ARTIFICIAL
+# INTEGRANTES:
+- Amarillas Aviles Brayan Alexis
+- Cuen Armenta Alma Victoria
+## PROFESOR:
+Zuriel Dathan Mora Felix
+#### TAREAS:
+#### - Arbol Binario
+#### - Resumen y presentacion sobre la historia de la IA
+#### - Investigacion y exposicion sobre los Agentes Deliberativos y ejemplos
+#### - Codigo para resolver Puzzle8 usando metodo A*
