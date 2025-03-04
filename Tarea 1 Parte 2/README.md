@@ -1,0 +1,4 @@
+# HISTORIA DE LA IA
+
+### - RESUMEN
+### - DIAPOSITIVA
