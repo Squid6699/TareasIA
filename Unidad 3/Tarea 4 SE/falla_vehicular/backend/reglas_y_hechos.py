@@ -124,13 +124,13 @@ hechos = {
 
 def evaluar_reglas(hechos):
     # FALLAS ELECTRICAS
-    if (hechos["VE"] and hechos["CL"]):
+    if (not hechos["VE"] and hechos["CL"]):
         FeR1()
 
-    if (hechos["VE"] and hechos["MG"]):
+    if (not hechos["VE"] and hechos["MG"]):
         FeR2()
 
-    if (hechos["VE"] and (hechos["TN"] or hechos["LN"])):
+    if (not hechos["VE"] and (hechos["TN"] or hechos["LN"])):
         FeR3()
 
     if (hechos["LT"] or hechos["LN"]):
@@ -142,7 +142,7 @@ def evaluar_reglas(hechos):
     if (hechos["BR"]):
         FeR6()
 
-    if (hechos["LP"] and hechos["RA"] and hechos["VN"]):
+    if (hechos["LP"]):
         FeR7()
 
     if (hechos["FL"] or hechos["FV"]):
@@ -417,7 +417,7 @@ def FeR3():
     diagnosticos.append("Falla electrica general")
     
 def FeR4():
-    diagnosticos.append("Bateria descargada o alternador")
+    diagnosticos.append("Bateria descargada o alternador no carga")
     
 def FeR5():
     diagnosticos.append("Mala conexion que impide arranque")
