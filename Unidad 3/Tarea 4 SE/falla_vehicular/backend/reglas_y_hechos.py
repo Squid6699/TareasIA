@@ -1,3 +1,5 @@
+diagnosticos = []
+
 hechos = {
     # FALLAS ELECTRICAS
     "VE": False,  # Vehículo no enciende
@@ -71,13 +73,13 @@ hechos = {
     "TI": False, # Temperatura inestable
     "RBC": False, # Refrigerante baja constantemente
     "CRS": False, # Charco de refrigerante
-    "ODR": False, # Olor dulce
+    "OD": False, # Olor dulce
     "VEC": False, # Vapor en cofre
     "VEE": False, # Vapor en escape
     "BED": False, # Burbujeo en deposito
     "VNA": False, # Ventilador no se activa
     "RFF": False, # Ruido o fuga frontal
-    "ROR": False, # Radiador obstruido
+    "RO": False, # Radiador obstruido
     "TTENC": False, # Testigo de temperatura encendido
 
     # FALLAS EN SUSPENCION
@@ -121,8 +123,6 @@ hechos = {
 }
 
 def evaluar_reglas(hechos):
-    diagnosticos = []
-
     # FALLAS ELECTRICAS
     if (hechos["VE"] and hechos["CL"]):
         FeR1()
@@ -235,6 +235,174 @@ def evaluar_reglas(hechos):
         FtR11()
         
     # FALLAS EN FRENOS
+    if (hechos["PFVF"]):
+        FfR1()
+
+    if (hechos["PFB"]):
+        FfR2()
+
+    if (hechos["PFD"]):
+        FfR3()
+
+    if (hechos["TEF"] or hechos["NFCF"]):
+        FfR4()
+
+    if (hechos["VVF"]):
+        FfR5()
+    
+    if (hechos["CAF"]):
+        FfR6()
+
+    if (hechos["RM"]):
+        FfR7()
+    
+    if (hechos["LFB"]):
+        FfR8()
+
+    if (hechos["LFO"]):
+        FfR9()
+
+    if (hechos["TFE"]):
+        FfR10()
+    
+    if (hechos["TAE"]):
+        FfR11()
+
+    # FALLAS EN SISTEMA DE REFRIGERACION
+    if (hechos["TSR"]):
+        FsrR1()
+
+    if (hechos["SCU"]):
+        FsrR2()
+
+    if (hechos["TI"]):
+        FsrR3()
+    
+    if (hechos["RBC"]):
+        FsrR4()
+
+    if (hechos["CRS"]):
+        FsrR5()
+
+    if (hechos["OD"]):
+        FsrR6()
+
+    if (hechos["VEC"] or hechos["VEE"]):
+        FsrR7()
+
+    if (hechos["BED"]):
+        FsrR8()
+    
+    if (hechos["VNA"]):
+        FsrR9()
+    
+    if (hechos["RFF"]):
+        FsrR10()
+
+    if (hechos["RO"]):
+        FsrR11()
+
+    if (hechos["TTENC"]):
+        FsrR12()
+
+    # FALLAS EN SUSPENCION
+    if (hechos["REB"]):
+        FsR1()
+
+    if (hechos["HFA"]):
+        FsR2()
+    
+    if (hechos["IEC"]):
+        FsR3()
+    
+    if (hechos["RAB"]):
+        FsR4()
+    
+    if (hechos["RAGV"]):
+        FsR5()
+    
+    if (hechos["RMB"]):
+        FsR6()
+    
+    if (hechos["AEA"]):
+        FsR7()
+    
+    if (hechos["RMDV"]):
+        FsR8()
+    
+    if (hechos["TI"]):
+        FsR9()
+    
+    if (hechos["DIL"]):
+        FsR10()
+
+    # FALLAS EN DIRECCION
+    if (hechos["VP"]):
+        FdR1()
+    
+    if (hechos["DGUS"]):
+        FdR2()
+    
+    if (hechos["VT"]):
+        FdR3()
+
+    if (hechos["RAG"]):
+        FdR4()
+
+    if (hechos["VSD"]):
+        FdR5()
+
+    if (hechos["DTL"]):
+        FdR6()
+
+    if (hechos["LDB"] or hechos["LDO"]):
+        FdR7()  
+
+    if (hechos["DF"]):
+        FdR8()
+    
+    if (hechos["FVD"]):
+        FdR9()
+
+    if (hechos["DEF"]):
+        FdR10()
+
+    # FALLAS EN SISTEMA DE ESCAPE
+    if (hechos["RFE"]):
+        FseR1()
+
+    if (hechos["RMC"]):
+        FseR2()
+    
+    if (hechos["SER"]):
+        FseR3()
+    
+    if (hechos["HCE"]):
+        FseR4()
+
+    if (hechos["VEE"]):
+        FseR5()
+    
+    if (hechos["PP"]):
+        FseR6()
+    
+    if (hechos["AD"]):
+        FseR7()
+    
+    if (hechos["CCA"]):
+        FseR8()
+
+    if (hechos["FVE"]):
+        FseR9()
+    
+    if (hechos["CD"]):
+        FseR10()
+    
+    if (hechos["RNE"]):
+        FseR11()
+    
+    if (hechos["CEE"]):
+        FseR12()
 
     return diagnosticos
 
@@ -350,14 +518,171 @@ def FtR11():
     diagnosticos.append("Fuga que reduce presión y daña componentes")
 
 # REGLAS DE FALLAS EN FRENOS
+def FfR1():
+    diagnosticos.append("Fuga de líquido, aire en el sistema, nivel bajo, líquido inadecuado, pastillas muy desgastadas")
 
+def FfR2():
+    diagnosticos.append("Aire en líneas, líquido contaminado, caliper agarrotado, latiguillo dañado, pinza gripada")
 
+def FfR3():
+    diagnosticos.append("Pastillas cristalizadas o contaminadas, servofreno, cilindros pegados, discos defectuosos")
 
+def FfR4():
+    diagnosticos.append("Discos alabeados, pastillas contamina, pastillas o zapatas desgastadas, discos dañadosdas, rodamientos sueltos, ruedas mal equilibradas")
 
+def FfR5():
+    diagnosticos.append("Discos alabeados, pastillas contaminadas, rodamientos sueltos, ruedas mal equilibradas")
 
+def FfR6():
+    diagnosticos.append("Pastillas sucias, gastadas, de mala calidad o discos deformados")
 
-# Ejemplo de uso
-hechos["VE"] = True
+def FfR7():
+    diagnosticos.append("Pastillas completamente gastadas, fricción metal con metal")
 
-diagnosticos = evaluar_reglas(hechos)
-print(f"Diagnóstico(s): {', '.join(diagnosticos)}")
+def FfR8():
+    diagnosticos.append("Posible fuga en el sistema")
+
+def FfR9():
+    diagnosticos.append("Necesita purgado y reemplazo")
+
+def FfR10():
+    diagnosticos.append("Freno de mano activado, bajo nivel, falla ABS")
+
+def FfR11():
+    diagnosticos.append("Falla en sensor de rueda, módulo ABS o cableado")
+
+# REGLAS DE FALLAS EN SISTEMA DE REFRIGERACION
+def FsrR1():
+    diagnosticos.append("Termostato cerrado o falta de refrigerante")
+
+def FsrR2():
+    diagnosticos.append("Falla en ventilador, radiador obstruido o bomba de agua")
+
+def FsrR3():
+    diagnosticos.append("Aire en el sistema, falla en termostato o sensor")
+
+def FsrR4():
+    diagnosticos.append("Fuga en mangueras, radiador, bomba o tapón")
+
+def FsrR5():
+    diagnosticos.append("Fuga en mangueras inferiores o radiador")
+
+def FsrR6():
+    diagnosticos.append("Fuga en calefactor interior o depósito")
+
+def FsrR7():
+    diagnosticos.append("Sobrecalentamiento severo o junta de culata dañada")
+
+def FsrR8():
+    diagnosticos.append("Aire en el sistema o fuga interna (junta o tapa)")
+
+def FsrR9():
+    diagnosticos.append("Falla en motor del ventilador, fusible, relé o sensor")
+
+def FsrR10():
+    diagnosticos.append("Bomba de agua defectuosa (rodamientos o sello)")
+
+def FsrR11():
+    diagnosticos.append("Transferencia térmica deficiente")
+
+def FsrR12():
+    diagnosticos.append("Sobrecalentamiento real o falla del sensor")
+
+# REGLAS DE FALLAS EN SUSPENCION
+def FsR1():
+    diagnosticos.append("Amortiguadores o struts desgastados o dañados")
+
+def FsR2():
+    diagnosticos.append("Desgaste en amortiguadores delanteros o traseros")
+
+def FsR3():
+    diagnosticos.append("Fallas en barras estabilizadoras o amortiguadores debilitados")
+
+def FsR4():
+    diagnosticos.append("Bujes, rótulas o soportes de amortiguador desgastados o sueltos")
+
+def FsR5():
+    diagnosticos.append("Fallo en topes de suspensión o rótulas")
+
+def FsR6():
+    diagnosticos.append("Resorte roto o muelle hundido")
+
+def FsR7():
+    diagnosticos.append("Amortiguador con fuga, debe reemplazarse")
+
+def FsR8():
+    diagnosticos.append("Amortiguadores no funcionan correctamente")
+
+def FsR9():
+    diagnosticos.append("Componentes desgastados o desalineación")
+
+def FsR10():
+    diagnosticos.append("Problemas de alineación, amortiguadores o partes flojas")
+
+# REGLAS DE FALLAS EN DIRECCION
+def FdR1():
+    diagnosticos.append("Falta de líquido o fuga en la dirección hidráulica")
+
+def FdR2():
+    diagnosticos.append("Falla en bomba o sistema hidráulico")
+
+def FdR3():
+    diagnosticos.append("Desbalanceo, mala alineación o rótulas defectuosas")
+
+def FdR4():
+    diagnosticos.append("Falta de líquido, bomba dañada o correa defectuosa")
+
+def FdR5():
+    diagnosticos.append("Mala alineación, presión desigual o falla en suspensión")
+
+def FdR6():
+    diagnosticos.append("Falla en rótulas o alineación")
+
+def FdR7():
+    diagnosticos.append("Fuga o bomba defectuosa")
+
+def FdR8():
+    diagnosticos.append("Barra de acoplamiento o brazo de pitman desgastados")
+
+def FdR9():
+    diagnosticos.append("Fugas en sistema hidráulico")
+
+def FdR10():
+    diagnosticos.append("Falla en sensor, módulo o unidad de potencia")
+
+# REGLAS DE FALLAS EN SISTEMA DE ESCAPE
+def FseR1():
+    diagnosticos.append("Fugas en catalizador o uniones del escape")
+
+def FseR2():
+    diagnosticos.append("Daño en silenciador, catalizador o mangueras del escape")
+
+def FseR3():
+    diagnosticos.append("Fuga en tubo de escape o catalizador defectuoso")
+
+def FseR4():
+    diagnosticos.append("Motor quemando aceite o exceso de combustible (posible fuga interna)") 
+
+def FseR5():
+    diagnosticos.append("Problemas con refrigeración (junta de culata quemada)")
+
+def FseR6():
+    diagnosticos.append("Obstrucción o fuga en catalizador/silenciador")
+
+def FseR7():
+    diagnosticos.append("Bloqueo o daño en catalizador o escape")
+
+def FseR8():
+    diagnosticos.append("Obstrucción en el escape que exige más al motor")
+
+def FseR9():
+    diagnosticos.append("Fuga que afecta eficiencia y emisiones")
+
+def FseR10():
+    diagnosticos.append("Catalizador obstruido o inoperante")
+
+def FseR11():
+    diagnosticos.append("Combustión incompleta (problema en inyectores o encendido)")
+
+def FseR12():
+    diagnosticos.append("Problema en sensor de oxígeno o catalizador")
