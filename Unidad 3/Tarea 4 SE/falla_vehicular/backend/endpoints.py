@@ -5,11 +5,6 @@ from reglas_y_hechos import hechos, diagnosticos, evaluar_reglas
 app = Flask(__name__)
 CORS(app)
 
-
-@app.route("/api/obtenerHechos", methods=["GET"])
-def obtener_hechos():
-    return jsonify({"hechos": hechos})
-
 @app.route("/api/diagnostico", methods=["POST"])
 def diagnostico():
     data = request.get_json()
@@ -19,6 +14,9 @@ def diagnostico():
         hechos[clave] = valor
     
     evaluar_reglas(hechos)
+    
+    for hecho in hechos:
+        hechos[hecho] = False
 
     return jsonify({"diagnosticos": diagnosticos})
 

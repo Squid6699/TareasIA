@@ -2,17 +2,17 @@ diagnosticos = []
 
 hechos = {
     # FALLAS ELECTRICAS
-    "VE": False,  # Vehículo no enciende
+    "VE": False,  # Vehículo enciende
     "CL": False,  # Se escucha un click
     "MG": False,  # Motor gira lentamente
-    "LN": False,  # Luces no encienden
-    "TN": False,  # Tablero no enciende
+    "LN": False,  # Luces encienden
+    "TN": False,  # Tablero enciende
     "LT": False,  # Luces tenues
     "CT": False,  # Corrosion en terminales
     "BR": False,  # Batería recargada varias veces
-    "LP": False,  # Limpia parabrisas no funcionan
-    "RA": False,  # Radio no funciona
-    "VN": False,  # Ventanas no funcionan
+    "LP": False,  # Limpia parabrisas funcionan
+    "RA": False,  # Radio funciona
+    "VN": False,  # Ventanas funcionan
     "FL": False,  # Fallas tras la lluvia
     "FV": False,  # Fallas tras lavado
     "FI": False,  # Fallas de intermitente
@@ -21,7 +21,7 @@ hechos = {
     "IP": False,  # Indicadores de tablero parpadean
 
     #FALLAS EN MOTOR
-    "MA": False,  # Motor no arranca
+    "MA": False,  # Motor arranca
     "BE": False,  # Batería en buen estado
     "BFC": False,  # Bateria funciona correctamente
     "MGSA": False,  # Motor gira sin arrancar
@@ -40,8 +40,9 @@ hechos = {
     "HNE": False, # Humo negro del escape
 
     #FALLAS EN LA TRANSMISION
+    "FT": False, # Falla transmision
     "TP": False, # Transmision patina
-    "CNE": False, # Cambios no entran
+    "CNE": False, # Cambios entran correctamente
     "CB": False, # Cambios bruscos
     "DMM": False, # Dificultad en marchas manual
     "CSS": False, # Cambios se salen
@@ -54,6 +55,7 @@ hechos = {
     "LTB": False, # Liquido de transmision bajo
 
     # FRENOS DEFECTUOSO
+    "FD": False, # Frenos defectuoso
     "PFVF": False, # Pedal se va al fondo
     "PFB": False, # Pedal de freno blando
     "PFD": False, # Pedal de freno duro
@@ -68,6 +70,7 @@ hechos = {
     "TAE": False, # Testigo de ABS encendido
 
     # FALLAS EN SISTEMA DE REFRIGERACION
+    "FSDR": False, # Falla sistema de refrigeracion
     "TSR": False, # Termostato sube rapidamente
     "SCU": False, # Sobrecalentamiento con uso
     "TI": False, # Temperatura inestable
@@ -83,6 +86,7 @@ hechos = {
     "TTENC": False, # Testigo de temperatura encendido
 
     # FALLAS EN SUSPENCION
+    "FSS": False, # Falla en suspension
     "REB": False, # Rebote excesivo en baches
     "HFA": False, # Hundimineto al frenar o acelerar
     "IEC": False, # Inclinacion excesiva al girar
@@ -91,10 +95,11 @@ hechos = {
     "RMB": False, # Rueda mas baja
     "AEA": False, # Aceite en amortiguadores
     "RMDV": False, # Rebota mas de dos veces
-    "TI": False, # Trayectoria inestable
+    "TIS": False, # Trayectoria inestable
     "DIL": False, # Desgaste irregular de llantas
 
     # FALLAS EN DIRECCION
+    "FSD": False, # Falla en direccion
     "VP": False,   # Volante pesado
     "DGUS": False, # Dificultad al girar en un solo sentido
     "VT": False,   # Volante tiembla
@@ -108,11 +113,12 @@ hechos = {
     "DEF": False,  # Dirección electrónica con falla
 
     # FALLAS EN SISTEMA DE ESCAPE
+    "FSES": False, # Falla en sistema de escape
     "RFE": False,  # Ruido fuerte en el escape
     "RMC": False,  # Ruido metálico constante
     "SER": False,  # Sonido de escape roto
     "HCE": False,  # Humo de colores en el escape
-    "VEE": False,  # Vapor excesivo en el escape
+    "VEEE": False,  # Vapor excesivo en el escape
     "PP": False,   # Pérdida de potencia
     "AD": False,   # Arranque difícil
     "CCA": False,  # Consumo de combustible alto
@@ -123,45 +129,46 @@ hechos = {
 }
 
 def evaluar_reglas(hechos):
+    diagnosticos.clear()
     # FALLAS ELECTRICAS
     if (not hechos["VE"] and hechos["CL"]):
         FeR1()
 
     if (not hechos["VE"] and hechos["MG"]):
         FeR2()
-
+    
     if (not hechos["VE"] and (hechos["TN"] or hechos["LN"])):
         FeR3()
-
-    if (hechos["LT"] or hechos["LN"]):
+    
+    if (hechos["VE"] and (hechos["LT"] or hechos["LN"])):
         FeR4()
-
+    
     if (hechos["CT"]):
         FeR5()
-
+    
     if (hechos["BR"]):
         FeR6()
-
+    
     if (hechos["LP"]):
         FeR7()
-
+    
     if (hechos["FL"] or hechos["FV"]):
         FeR8()
-        
+            
     if (hechos["FI"]):
         FeR9()
-    
-    if (hechos["TB"]):
-        FeR10()
         
+    if (hechos["VE"] and hechos["TB"]):
+        FeR10()
+            
     if (hechos["IA"] or hechos["IP"]):
         FeR11()
-        
+            
     # FALLAS EN MOTOR
-    if (hechos["MA"] and hechos["BE"]):
+    if (not hechos["MA"] and hechos["BE"]):
         FmR1()
         
-    if (hechos["BE"] and not hechos["BFC"]):
+    if (not hechos["BE"] and hechos["BFC"]):
         FmR2()
     
     if (hechos["MGSA"]):
@@ -179,10 +186,10 @@ def evaluar_reglas(hechos):
     if (hechos["PPS"] or hechos["PPC"]):
         FmR7()
         
-    if (hechos["MC"]):
+    if (hechos["TT"]):
         FmR8()
     
-    if (hechos["VC"] or hechos["TT"]):
+    if (hechos["VC"]):
         FmR9()
     
     if (hechos["RMM"]):
@@ -330,7 +337,7 @@ def evaluar_reglas(hechos):
     if (hechos["RMDV"]):
         FsR8()
     
-    if (hechos["TI"]):
+    if (hechos["TIS"]):
         FsR9()
     
     if (hechos["DIL"]):
@@ -380,7 +387,7 @@ def evaluar_reglas(hechos):
     if (hechos["HCE"]):
         FseR4()
 
-    if (hechos["VEE"]):
+    if (hechos["VEEE"]):
         FseR5()
     
     if (hechos["PP"]):
@@ -408,28 +415,28 @@ def evaluar_reglas(hechos):
 
 # REGLAS DE FALLAS ELECTRICAS
 def FeR1():
-    diagnosticos.append("Motor de arranque o bateria debil")
+    diagnosticos.append("Motor de arranque defectuoso o bateria debil")
 
 def FeR2():
     diagnosticos.append("Bateria descargada o sulfatada")
 
 def FeR3():
-    diagnosticos.append("Falla electrica general")
+    diagnosticos.append("Falla eléctrica general (batería, fusibles o sistema de carga)")
     
 def FeR4():
     diagnosticos.append("Bateria descargada o alternador no carga")
     
 def FeR5():
-    diagnosticos.append("Mala conexion que impide arranque")
+    diagnosticos.append("Mala conexion por corrosion que impide arranque")
     
 def FeR6():
     diagnosticos.append("Alternador fallando o fugas de corriente")
     
 def FeR7():
-    diagnosticos.append("Fusible principal quemado o desconexion electrica")
+    diagnosticos.append("Fusible principal quemado o desconexión eléctrica")
     
 def FeR8():
-    diagnosticos.append("Humedad en conexiones o cortocircuito")
+    diagnosticos.append("Humedad en conexiones electricas o cortocircuito")
 
 def FeR9():
     diagnosticos.append("Falsos contactos, reles dañados o cableado defectuoso")
@@ -454,7 +461,7 @@ def FmR4():
     diagnosticos.append("Falla en sensor de cigüeñal, bomba de combustible o sistema antirrobo")
     
 def FmR5():
-    diagnosticos.append("Fall en sistema de inyección, bujías sucias o filtro de aire obstruido")
+    diagnosticos.append("Falla en sistema de inyección, bujías sucias o filtro de aire obstruido")
     
 def FmR6():
     diagnosticos.append("Bujía fallando, cable dañado o inyectores sucios")
