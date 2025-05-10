@@ -208,7 +208,7 @@ function App() {
     rebotaPresionarlo: null,
     seSienteInestable: null,
     desgasteIrregular: null,
-    
+
   })
 
   const [disableFallasSuspension, setDisableFallasSuspension] = useState({
@@ -355,7 +355,7 @@ function App() {
       [fact]: value
     }))
   }
-  
+
   const handleFallasRefrigeracion = (key, value, fact) => {
     setFallaRefrigeracion(prevState => ({
       ...prevState,
