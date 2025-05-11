@@ -431,9 +431,15 @@ function App() {
         const data = await response.json();
 
         if (data.diagnosticos && data.diagnosticos.length > 0) {
-          setModalTitle("DIAGNOSTICO")
-          setModalText(data.diagnosticos)
-          setOpen(true)
+          const newDiagnosticos = data.diagnosticos;
+          const diagnosticosString = JSON.stringify(newDiagnosticos);
+          const currentString = JSON.stringify(modalText);
+
+          if (diagnosticosString !== currentString) {
+            setModalTitle("DIAGNOSTICO");
+            setModalText(newDiagnosticos);
+            setOpen(true);
+          }
         }
 
       } catch (error) {
@@ -487,8 +493,8 @@ function App() {
       motorFuncionaConJalones: null,
       tiemblaRelenti: null,
       PierdeMotencia: null,
-      calientaExecesivamente: null,
-      saleVaporCofre: null,
+      testigoTemperatura: false,
+      saleVaporCofre: false,
       ruidoMetalico: null,
       chillidoAcelerar: null,
       humoAzul: null,
@@ -506,7 +512,7 @@ function App() {
       motorFuncionaConJalones: false,
       tiemblaRelenti: false,
       PierdeMotencia: false,
-      calientaExecesivamente: false,
+      testigoTemperatura: false,
       saleVaporCofre: false,
       ruidoMetalico: false,
       chillidoAcelerar: false,
@@ -724,12 +730,15 @@ function App() {
 
       <Fallas_Escape handleFallasEscape={handleFallasEscape} fallasEscape={fallasEscape} disabeFallasEscape={disableFallasEscape} />
 
-      <ModalComponente
-        open={open}
-        handleClose={handleClose}
-        title={modalTitle}
-        text={modalText}
-      />
+      {open &&
+        <ModalComponente
+          open={open}
+          handleClose={handleClose}
+          title={modalTitle}
+          text={modalText}
+        />
+      }
+
     </>
   )
 }

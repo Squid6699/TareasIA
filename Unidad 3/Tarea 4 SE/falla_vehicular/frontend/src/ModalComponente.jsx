@@ -9,10 +9,12 @@ function ModalComponente({ open, handleClose, title, text }) {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 400,
+        maxHeight: '80vh',
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        overflowY: 'auto',
     };
 
     return (
@@ -43,7 +45,6 @@ function ModalComponente({ open, handleClose, title, text }) {
             </Box>
         </Modal>
     );
-
 }
 
 export default ModalComponente;
