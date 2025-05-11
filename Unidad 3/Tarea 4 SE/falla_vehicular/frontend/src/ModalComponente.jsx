@@ -23,12 +23,23 @@ function ModalComponente({ open, handleClose, title, text }) {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography className='titleModal' id="modal-modal-title" variant="h6" component="h2">
                     {title}
                 </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }} color='text.secondary'>
-                    {text}
-                </Typography>
+
+                {
+                    text && Array.isArray(text) && text.length > 0 ? (
+                        text.map((item, index) => (
+                            <Typography key={index} id="modal-modal-description" sx={{ mt: 2 }} color="text.secondary">
+                                {item}
+                            </Typography>
+                        ))
+                    ) : (
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }} color="text.secondary">
+                            No hay información disponible
+                        </Typography>
+                    )
+                }
             </Box>
         </Modal>
     );

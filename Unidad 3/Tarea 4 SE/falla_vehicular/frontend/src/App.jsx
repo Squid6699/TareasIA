@@ -15,21 +15,13 @@ function App() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
-  const [modalContent, setModalContent] = useState({
-    title: "",
-    text: ""
-  })
-
-  const handleContent = (title, text) => {
-    setModalContent({
-      title: title,
-      text: text
-    })
-  }
+  const [modalTitle, setModalTitle] = useState("")
+  const [modalText, setModalText] = useState([])
 
   const handleVerDiagnostico = () => {
-    if (modalContent.text.length === 0 && modalContent.title.length === 0) {
-      handleContent("Sin diagnostico", "No hay diagnostico para mostrar")
+    if (modalTitle.length === 0 && modalText.length === 0) {
+      setModalTitle("SIN DIAGNOSTICO")
+      setModalText("No hay diagnostico para mostrar")
     }
     setOpen(true)
   }
@@ -439,7 +431,8 @@ function App() {
         const data = await response.json();
 
         if (data.diagnosticos && data.diagnosticos.length > 0) {
-          handleContent("Diagnóstico", data.diagnosticos);
+          setModalTitle("DIAGNOSTICO")
+          setModalText(data.diagnosticos)
           setOpen(true)
         }
 
@@ -702,10 +695,8 @@ function App() {
       checkEngineEncendido: false
     })
 
-    setModalContent({
-      title: "",
-      text: ""
-    })
+    setModalText([])
+    setModalTitle("")
     setFallasFacts({})
   }
 
@@ -736,8 +727,8 @@ function App() {
       <ModalComponente
         open={open}
         handleClose={handleClose}
-        title={modalContent.title}
-        text={modalContent.text}
+        title={modalTitle}
+        text={modalText}
       />
     </>
   )

@@ -46,7 +46,7 @@ h1 {
 h2 {
   font-size: 2.4em;
   line-height: 1.1;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 button {
@@ -88,4 +88,17 @@ button:focus-visible {
 .css-1uent87-MuiButtonBase-root-MuiButton-root {
   color: rgb(0, 0, 0) !important;
 
+}
+
+.css-1uent87-MuiButtonBase-root-MuiButton-root:disabled {
+  color: rgba(0, 0, 0, 0.423) !important;
+
+}
+
+header .css-1uent87-MuiButtonBase-root-MuiButton-root {
+  color: rgb(255, 255, 255) !important;
+}
+
+.titleModal{
+  color: rgb(0, 0, 0) !important;
 }
